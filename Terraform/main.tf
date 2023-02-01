@@ -15,7 +15,7 @@ provider "aws" {
 resource "aws_instance" "ec21" {
   ami             = var.ami
   instance_type   = var.type
-  count = 1
+  count = 2
   security_groups = ["${aws_security_group.allow_tls.name}"]
   key_name        = aws_key_pair.TF_key.key_name
 }
