@@ -8,7 +8,6 @@ variable "type" {
 }
 
 variable "access" {
-  type = string
   
 }
 
