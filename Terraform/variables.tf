@@ -15,9 +15,6 @@ variable "secret" {
   
 }
 
-variable "region" {
-  
-}
 variable "vpc_id" {
   default = "vpc-0f6156e3671cf91fb"
 
