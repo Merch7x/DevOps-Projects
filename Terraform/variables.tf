@@ -13,12 +13,10 @@ variable "access" {
 }
 
 variable "secret" {
-  type = string
   
 }
 
 variable "region" {
-  type = string
   
 }
 variable "vpc_id" {
