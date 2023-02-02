@@ -16,6 +16,11 @@ variable "secret" {
   type = string
   
 }
+
+variable "region" {
+  type = string
+  
+}
 variable "vpc_id" {
   default = "vpc-0f6156e3671cf91fb"
 
