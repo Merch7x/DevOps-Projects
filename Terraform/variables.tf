@@ -7,7 +7,15 @@ variable "type" {
 
 }
 
+variable "access" {
+  type = string
+  
+}
 
+variable "secret" {
+  type = string
+  
+}
 variable "vpc_id" {
   default = "vpc-0f6156e3671cf91fb"
 
