@@ -7,3 +7,4 @@ Its a multi-project repo with different folders having different elements of Dev
   Containerization
   Container Orcherstration
   Infrastructure procisioning and Management
+  Monitoring and Observability
