@@ -17,30 +17,15 @@ provider "aws" {
 resource "aws_instance" "ec21" {
   ami             = var.ami
   instance_type   = var.type
-  count = 2
+  count = 1
   security_groups = ["${aws_security_group.allow_tls.name}"]
   key_name        = aws_key_pair.TF_key.key_name
 }
 
 
 
-resource "aws_key_pair" "TF_key" {
-  key_name   = "T_key"
-  public_key = tls_private_key.rsa.public_key_openssh
-}
-
-resource "tls_private_key" "rsa" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-
-}
-
-resource "local_file" "TF_key" {
-  filename = "Tf_key.pem"
-  content  = tls_private_key.rsa.private_key_pem
-}
 resource "aws_security_group" "allow_tls" {
-  name        = "allow_tls"
+  name        = "My-SG"
   description = "Allow TLS inbound traffic"
   vpc_id      = var.vpc_id
 
