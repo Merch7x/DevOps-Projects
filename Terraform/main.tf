@@ -22,11 +22,6 @@ resource "aws_instance" "ec21" {
   key_name        = aws_key_pair.TF_key.key_name
 }
 
-resource "aws_s3_bucket" "jenkins" {
-  bucket = "jenkins-backup8981"
-
-
-}
 
 
 resource "aws_key_pair" "TF_key" {
