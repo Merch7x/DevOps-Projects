@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+//declares which tools will be used for the job    
+    tools {
+        maven 'Jenkins-Maven'
+    }
+
+    stages {
+// checks for changes from Github through webhooks        
+        stage('Git-checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Merch7x/simple-java-maven-app.git']])
+            }
+        }
+// Builds the jar file            
+        stage('build') {
+            steps {
+                sh 'mvn -B -DSkiptests clean package'
+            }
+        }
+// Runs the tests            
+        stage('test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+ // displays the jar       
+        stage('create jar'){
+            steps {
+                sh 'java -jar /var/jenkins_home/workspace/Dp-nexus/target/my-app-1.0-SNAPSHOT.jar'
+            }
+        }
+// pushes the jar to private nexus repo        
+        stage('push to nexus-repo'){
+                steps {
+                    nexusPublisher nexusInstanceId: 'maven-hosted', nexusRepositoryId: 'maven-releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/jenkins_home/workspace/Dp-nexus/target/my-app-1.0-SNAPSHOT.jar']], mavenCoordinate: [artifactId: 'sample-java-app', groupId: 'test', packaging: 'jar', version: '1.0.0']]]
+            }
+            
+        }
+    }
+
+}
