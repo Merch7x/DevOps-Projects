@@ -13,4 +13,3 @@ The infrastructure is provisioned through jenkins. A jenkins pipeline Job is set
 Jenkins version 2.385
 Terraform version 1.3.7
 
-
