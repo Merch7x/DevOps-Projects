@@ -1,6 +1,6 @@
 pipeline {
     agent any
-//declares which tools will be used for the job    
+// declares which tools will be used for the job    
     tools {
         maven 'Jenkins-Maven'
     }
@@ -30,12 +30,22 @@ pipeline {
                 sh 'java -jar /var/jenkins_home/workspace/Dp-nexus/target/my-app-1.0-SNAPSHOT.jar'
             }
         }
+
+        stage('Create Docker image') {
+
+        }
 // pushes the jar to private nexus repo        
         stage('push to nexus-repo'){
-                steps {
-                    nexusPublisher nexusInstanceId: 'maven-hosted', nexusRepositoryId: 'maven-releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/jenkins_home/workspace/Dp-nexus/target/my-app-1.0-SNAPSHOT.jar']], mavenCoordinate: [artifactId: 'sample-java-app', groupId: 'test', packaging: 'jar', version: '1.0.0']]]
+            steps {
+                nexusPublisher nexusInstanceId: 'maven-hosted', nexusRepositoryId: 'maven-releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/jenkins_home/workspace/Dp-nexus/target/my-app-1.0-SNAPSHOT.jar']], mavenCoordinate: [artifactId: 'sample-java-app', groupId: 'test', packaging: 'jar', version: '1.0.0']]]
             }
             
+        }
+
+        stage('push to amazon ECR') {
+            steps {
+
+            } 
         }
     }
 
