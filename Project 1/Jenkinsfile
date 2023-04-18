@@ -58,7 +58,7 @@ pipeline {
             }
         }
 
-//destroys the created infrastructure created above
+//destroys the created infrastructure 
 //         stage('destroy') {
 //             steps {
 //                 dir('Project 1/') {
