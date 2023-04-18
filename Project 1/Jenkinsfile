@@ -59,12 +59,12 @@ pipeline {
         }
 
 //destroys the created infrastructure 
-        //  stage('destroy') {
-        //      steps {
-        //          dir('Project 1/') {
-        //              sh 'terraform destroy --auto-approve -var="access=$access_key" -var="secret=$secret_key"'
-        //          }
-        //      }
-        // }
+         stage('destroy') {
+             steps {
+                 dir('Project 1/') {
+                     sh 'terraform destroy --auto-approve -var="access=$access_key" -var="secret=$secret_key"'
+                 }
+             }
+        }
     }
  }
