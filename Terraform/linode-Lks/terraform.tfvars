@@ -4,6 +4,6 @@ region = "eu-west"
 pools = [
   {
     type : "g6-standard-2"
-    count : 3
+    count : 2
   }
 ]
