@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    google = {
-      source = "hashicorp/google"
-      version = "4.47.0"
-    }
-  }
-}
-
 module "gke_auth" {
   source = "terraform-google-modules/kubernetes-engine/google//modules/auth"
   version = "24.1.0"
@@ -50,12 +41,6 @@ module "gcp-network" {
 }
 
 data "google_client_config" "default" {}
-
-provider "kubernetes" {
-  host                   = "https://${module.gke.endpoint}"
-  token                  = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(module.gke.ca_certificate)
-}
 
 module "gke" {
   source                 = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
