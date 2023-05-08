@@ -14,7 +14,7 @@ pipeline {
         stage('git checkout') {
             steps {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Merch7x/DevOps-Projects.git']])
-                        dir('Terraform/Ec2/') {
+                        dir('Terraform/linode-Lks/') {
                             
                         }
             }
@@ -23,7 +23,7 @@ pipeline {
 //initialises the terraform backend
         stage('initialization') {
             steps {
-                 dir('Terraform/Ec2/') {
+                 dir('Terraform/Linode-Lks/') {
                      sh 'pwd'
                      sh 'terraform init'
                  }
@@ -33,7 +33,7 @@ pipeline {
 // validates the configuration file is correct        
         stage('validation') {
             steps {
-                dir('Terraform/Ec2/') {
+                dir('Terraform/linode-Lks/') {
                     sh 'terraform validate'
                 }
             }
@@ -42,7 +42,7 @@ pipeline {
 // plans what the config infra will look like       
         stage('plan') {
             steps {
-                dir('Terraform/Ec2/') {
+                dir('Terraform/linode-Lks/') {
                     sh 'terraform plan  -var-file="terraform.tfvars" -var="token=$access_key"'
                 }
             }
@@ -51,7 +51,7 @@ pipeline {
 // applies the configuration file        
         stage('apply') {
             steps {
-                dir('Terraform/Ec2/') {
+                dir('Terraform/linode-Lks/') {
                     sh 'terraform apply --auto-approve -var-file="terraform.tfvars" -var="token=$token"'
                 }
             }
@@ -60,7 +60,7 @@ pipeline {
 //destroys the created infrastructure 
          stage('destroy') {
              steps {
-                 dir('Terraform/Ec2/') {
+                 dir('Terraform/Linode-Lks/') {
                      sh 'terraform destroy --auto-approve -var-file="terraform.tfvars" -var="token=$token"'
                  }
              }
