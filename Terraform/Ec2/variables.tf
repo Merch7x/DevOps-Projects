@@ -7,13 +7,13 @@ variable "type" {
 
 }
 
-variable "access" {
-  default = var.access
+variable "access_key" {
+  description = "Aws Acess Key"
 
 }
 
-variable "secret" {
-  default = var.secret
+variable "secret_key" {
+  description = "Aws secret Key"
 }
 
 variable "vpc_id" {
