@@ -1,0 +1,69 @@
+pipeline {
+    agent any
+//credentials are passed as environmental variables    
+    environment {
+        token = credentials('linode-api-token')
+        
+    }
+ // specifies which tools terraform should use to run the job   
+    tools{
+        terraform 'terraform'
+    }
+//checksout the code from the github repository
+    stages {
+        stage('git checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Merch7x/DevOps-Projects.git']])
+                        dir('Terraform/Ec2/') {
+                            
+                        }
+            }
+        }
+        
+//initialises the terraform backend
+        stage('initialization') {
+            steps {
+                 dir('Terraform/Ec2/') {
+                     sh 'pwd'
+                     sh 'terraform init'
+                 }
+            }
+        }
+
+// validates the configuration file is correct        
+        stage('validation') {
+            steps {
+                dir('Terraform/Ec2/') {
+                    sh 'terraform validate'
+                }
+            }
+        }
+
+// plans what the config infra will look like       
+        stage('plan') {
+            steps {
+                dir('Terraform/Ec2/') {
+                    sh 'terraform plan  -var-file="terraform.tfvars" -var="token=$access_key"'
+                }
+            }
+        }
+
+// applies the configuration file        
+        stage('apply') {
+            steps {
+                dir('Terraform/Ec2/') {
+                    sh 'terraform apply --auto-approve -var-file="terraform.tfvars" -var="token=$token"'
+                }
+            }
+        }
+
+//destroys the created infrastructure 
+         stage('destroy') {
+             steps {
+                 dir('Terraform/Ec2/') {
+                     sh 'terraform destroy --auto-approve -var-file="terraform.tfvars" -var="token=$token"'
+                 }
+             }
+        }
+    }
+ }
