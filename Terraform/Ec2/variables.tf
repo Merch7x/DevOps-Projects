@@ -8,11 +8,12 @@ variable "type" {
 }
 
 variable "access" {
-  
+  access_key = var.access
+
 }
 
 variable "secret" {
-  
+  secret_key = var.secret
 }
 
 variable "vpc_id" {
