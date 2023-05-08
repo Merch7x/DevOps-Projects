@@ -15,7 +15,7 @@ pipeline {
         stage('git checkout') {
             steps {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Merch7x/DevOps-Projects.git']])
-                        dir('Ec2/') {
+                        dir('Terraform/Ec2/') {
                             
                         }
             }
@@ -24,7 +24,7 @@ pipeline {
 //initialises the terraform backend
         stage('initialization') {
             steps {
-                 dir('Ec2/') {
+                 dir('Terraform/Ec2/') {
                      sh 'pwd'
                      sh 'terraform init'
                  }
@@ -34,7 +34,7 @@ pipeline {
 // validates the configuration file is correct        
         stage('validation') {
             steps {
-                dir('Ec2/') {
+                dir('Terraform/Ec2/') {
                     sh 'terraform validate'
                 }
             }
@@ -43,7 +43,7 @@ pipeline {
 // plans what the config infra will look like       
         stage('plan') {
             steps {
-                dir('Ec2/') {
+                dir('Terraform/Ec2/') {
                     sh 'terraform plan -var="access=$access_key" -var="secret=$secret_key"'
                 }
             }
@@ -52,7 +52,7 @@ pipeline {
 // applies the configuration file        
         stage('apply') {
             steps {
-                dir('Ec2/') {
+                dir('Terraform/Ec2/') {
                     sh 'terraform apply --auto-approve -var="access=$access_key" -var="secret=$secret_key"'
                 }
             }
@@ -61,7 +61,7 @@ pipeline {
 //destroys the created infrastructure 
          stage('destroy') {
              steps {
-                 dir('Ec2/') {
+                 dir('Terraform/Ec2/') {
                      sh 'terraform destroy --auto-approve -var="access=$access_key" -var="secret=$secret_key"'
                  }
              }
