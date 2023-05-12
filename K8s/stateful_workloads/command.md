@@ -10,7 +10,7 @@ helm repo update
 helm install nginx-ingress ingress-nginx/ingress-nginx --set controller.publishService.enabled=true`
 
 ### Deploy Mongo-express deployment
-kubectl apply -f test-mongo-express.yaml
+`kubectl apply -f test-mongo-express.yaml`
 
 ### Create ingress rule
-Kubectl apply -f test-ingress.yaml
+`Kubectl apply -f test-ingress.yaml`
