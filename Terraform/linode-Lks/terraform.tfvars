@@ -1,4 +1,4 @@
-label = "istio-cluster"
+label = "dev-cluster"
 k8s_version = "1.26"
 region = "eu-west"
 pools = [

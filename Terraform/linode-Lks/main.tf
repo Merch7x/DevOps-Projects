@@ -1,4 +1,4 @@
-resource "linode_lke_cluster" "istio-test" {
+resource "linode_lke_cluster" "dev" {
     k8s_version = var.k8s_version
     label = var.label
     region = var.region
