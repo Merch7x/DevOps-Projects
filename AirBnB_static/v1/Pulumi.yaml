@@ -1,0 +1,10 @@
+name: Airbnb_web_static
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: A static airbnb clone
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: ""
